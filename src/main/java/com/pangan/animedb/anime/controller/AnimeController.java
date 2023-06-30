@@ -3,6 +3,7 @@ package com.pangan.animedb.anime.controller;
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
 import com.pangan.animedb.anime.service.AnimeService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,6 +15,7 @@ public class AnimeController {
 
     private final AnimeService animeService;
 
+    @Autowired
     public AnimeController(AnimeService animeService) {
         this.animeService = animeService;
     }
