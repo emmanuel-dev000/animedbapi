@@ -1,4 +1,4 @@
-package com.pangan.animedb.model;
+package com.pangan.animedb.anime.model;
 
 import org.springframework.data.annotation.Id;
 

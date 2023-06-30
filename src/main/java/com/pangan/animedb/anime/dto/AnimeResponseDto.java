@@ -1,4 +1,4 @@
-package com.pangan.animedb.dto;
+package com.pangan.animedb.anime.dto;
 
 public record AnimeResponseDto(
         String id,

@@ -1,6 +1,6 @@
-package com.pangan.animedb;
+package com.pangan.animedb.anime.repository;
 
-import com.pangan.animedb.model.Anime;
+import com.pangan.animedb.anime.model.Anime;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 import java.util.Optional;
