@@ -22,9 +22,7 @@ public class AnimeController {
 
     @GetMapping
     public ResponseEntity<List<AnimeResponseDto>> getAllAnime() {
-        return ResponseEntity.ok(
-                animeService.getAllAnime()
-        );
+        return ResponseEntity.ok(animeService.getAllAnime());
     }
 
     @GetMapping("/{id}")
