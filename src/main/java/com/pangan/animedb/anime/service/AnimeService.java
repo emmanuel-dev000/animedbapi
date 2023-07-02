@@ -1,13 +1,12 @@
 package com.pangan.animedb.anime.service;
 
-import com.pangan.animedb.anime.constants.AnimeConstants;
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
 import com.pangan.animedb.anime.model.Anime;
 import com.pangan.animedb.anime.repository.AnimeRepository;
 import com.pangan.animedb.anime.mapper.AnimeMapper;
-import com.pangan.animedb.exception.NoAnimeContentException;
-import com.pangan.animedb.exception.NoAnimeFoundException;
+import com.pangan.animedb.anime.exception.NoAnimeContentException;
+import com.pangan.animedb.anime.exception.NoAnimeFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -63,5 +62,20 @@ public class AnimeService {
 
         animeRepository.deleteById(id);
         return getAllAnime();
+    }
+
+    public AnimeResponseDto updateAnimeById(String id, AnimeRequestDto animeRequestDto) throws NoAnimeContentException, NoAnimeFoundException {
+        if (!StringUtils.hasText(animeRequestDto.name())) {
+            throw new NoAnimeContentException();
+        }
+
+        Optional<Anime> optionalAnime = animeRepository.findById(id);
+        if (optionalAnime.isEmpty()) {
+            throw new NoAnimeFoundException();
+        }
+
+        Anime anime = AnimeMapper.mapRequestToAnime(animeRequestDto, optionalAnime.get());
+        Anime updatedAnime = animeRepository.save(anime);
+        return AnimeMapper.mapAnimeToResponse(updatedAnime);
     }
 }

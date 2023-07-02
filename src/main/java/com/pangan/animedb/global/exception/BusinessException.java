@@ -1,4 +1,4 @@
-package com.pangan.animedb.exception;
+package com.pangan.animedb.global.exception;
 
 public class BusinessException extends RuntimeException {
     private final String title;

@@ -1,4 +1,6 @@
-package com.pangan.animedb.exception;
+package com.pangan.animedb.anime.exception;
+
+import com.pangan.animedb.global.exception.BusinessException;
 
 public class NoAnimeContentException extends BusinessException {
     public static final String TITLE = "No contents.";

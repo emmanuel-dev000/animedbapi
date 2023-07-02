@@ -12,6 +12,11 @@ public class AnimeMapper {
         return anime;
     }
 
+    public static Anime mapRequestToAnime(AnimeRequestDto animeRequestDto, Anime anime) {
+        anime.setName(animeRequestDto.name());
+        return anime;
+    }
+
     public static AnimeResponseDto mapAnimeToResponse(Anime anime) {
         return new AnimeResponseDto(
                 anime.getId(),

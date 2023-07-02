@@ -27,26 +27,21 @@ public class AnimeController {
 
     @GetMapping("/{id}")
     public ResponseEntity<AnimeResponseDto> getAnimeById(@PathVariable("id") String id) {
-        return ResponseEntity.ok(
-                animeService.getAnimeById(id));
+        return ResponseEntity.ok(animeService.getAnimeById(id));
     }
 
     @PostMapping
     public ResponseEntity<AnimeResponseDto> addAnime(@RequestBody AnimeRequestDto animeRequestDto) {
-        return ResponseEntity.ok(
-                animeService.addAnime(animeRequestDto));
+        return ResponseEntity.ok(animeService.addAnime(animeRequestDto));
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<List<AnimeResponseDto>> deleteAnimeById(@PathVariable("id") String id) {
-        return ResponseEntity.ok(
-                animeService.deleteAnimeById(id)
-        );
+        return ResponseEntity.ok(animeService.deleteAnimeById(id));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> updateAnimeById(@PathVariable("id") String id,
-                                                  @RequestBody AnimeRequestDto animeRequestDto) {
-        return ResponseEntity.ok("Anime ID: " + id + " was updated to: " + animeRequestDto.name());
+    public ResponseEntity<AnimeResponseDto> updateAnimeById(@PathVariable("id") String id, @RequestBody AnimeRequestDto animeRequestDto) {
+        return ResponseEntity.ok(animeService.updateAnimeById(id, animeRequestDto));
     }
 }

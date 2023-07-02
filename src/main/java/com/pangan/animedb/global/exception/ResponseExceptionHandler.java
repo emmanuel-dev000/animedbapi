@@ -1,5 +1,7 @@
-package com.pangan.animedb.exception;
+package com.pangan.animedb.global.exception;
 
+import com.pangan.animedb.anime.exception.NoAnimeContentException;
+import com.pangan.animedb.anime.exception.NoAnimeFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
