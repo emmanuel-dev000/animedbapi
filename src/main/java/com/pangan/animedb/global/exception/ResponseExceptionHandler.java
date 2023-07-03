@@ -1,6 +1,6 @@
 package com.pangan.animedb.global.exception;
 
-import com.pangan.animedb.anime.exception.NoAnimeContentException;
+import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.NoAnimeFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,7 +26,7 @@ public class ResponseExceptionHandler {
 
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    private ResponseEntity<ResponseException> handleNoAnimeContentException(NoAnimeContentException e) {
+    private ResponseEntity<ResponseException> handleNoAnimeContentException(IncompleteAnimeFieldsException e) {
         ResponseException exception = new ResponseException(
                 e.getTitle(),
                 e.getMessage(),

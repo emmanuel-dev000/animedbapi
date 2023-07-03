@@ -2,11 +2,11 @@ package com.pangan.animedb.anime.exception;
 
 import com.pangan.animedb.global.exception.BusinessException;
 
-public class NoAnimeContentException extends BusinessException {
-    public static final String TITLE = "No contents.";
+public class IncompleteAnimeFieldsException extends BusinessException {
+    public static final String TITLE = "Incomplete fields.";
     public static final String ERROR_MESSAGE = "Input fields must not be null.";
 
-    public NoAnimeContentException() {
+    public IncompleteAnimeFieldsException() {
         super(TITLE, ERROR_MESSAGE);
     }
 }

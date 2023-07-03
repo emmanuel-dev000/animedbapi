@@ -5,7 +5,7 @@ import com.pangan.animedb.anime.dto.AnimeResponseDto;
 import com.pangan.animedb.anime.model.Anime;
 import com.pangan.animedb.anime.repository.AnimeRepository;
 import com.pangan.animedb.anime.mapper.AnimeMapper;
-import com.pangan.animedb.anime.exception.NoAnimeContentException;
+import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.NoAnimeFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,9 +45,9 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(optionalAnime.get());
     }
 
-    public AnimeResponseDto addAnime(AnimeRequestDto animeRequestDto) throws NoAnimeContentException {
+    public AnimeResponseDto addAnime(AnimeRequestDto animeRequestDto) throws IncompleteAnimeFieldsException {
         if (!StringUtils.hasText(animeRequestDto.name())) {
-            throw new NoAnimeContentException();
+            throw new IncompleteAnimeFieldsException();
         }
 
         Anime addAnime = AnimeMapper.mapRequestToAnime(animeRequestDto);
@@ -64,9 +64,9 @@ public class AnimeService {
         return getAllAnime();
     }
 
-    public AnimeResponseDto updateAnimeById(String id, AnimeRequestDto animeRequestDto) throws NoAnimeContentException, NoAnimeFoundException {
+    public AnimeResponseDto updateAnimeById(String id, AnimeRequestDto animeRequestDto) throws IncompleteAnimeFieldsException, NoAnimeFoundException {
         if (!StringUtils.hasText(animeRequestDto.name())) {
-            throw new NoAnimeContentException();
+            throw new IncompleteAnimeFieldsException();
         }
 
         Optional<Anime> optionalAnime = animeRepository.findById(id);
