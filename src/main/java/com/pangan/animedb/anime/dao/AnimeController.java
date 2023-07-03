@@ -1,8 +1,8 @@
-package com.pangan.animedb.anime.controller;
+package com.pangan.animedb.anime.dao;
 
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
-import com.pangan.animedb.anime.service.AnimeService;
+import com.pangan.animedb.genre.dao.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -43,5 +43,10 @@ public class AnimeController {
     @PatchMapping("/{id}")
     public ResponseEntity<AnimeResponseDto> updateAnimeById(@PathVariable("id") String id, @RequestBody AnimeRequestDto animeRequestDto) {
         return ResponseEntity.ok(animeService.updateAnimeById(id, animeRequestDto));
+    }
+
+    @PostMapping("/{id}/genres")
+    public ResponseEntity<AnimeResponseDto> addGenreToAnimeById(@PathVariable("id") String id, @RequestBody List<Genre> genreList) {
+        return ResponseEntity.ok(animeService.addGenreListToAnimeById(id, genreList));
     }
 }

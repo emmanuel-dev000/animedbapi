@@ -1,12 +1,11 @@
-package com.pangan.animedb.anime.service;
+package com.pangan.animedb.anime.dao;
 
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
-import com.pangan.animedb.anime.model.Anime;
-import com.pangan.animedb.anime.repository.AnimeRepository;
 import com.pangan.animedb.anime.mapper.AnimeMapper;
 import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.NoAnimeFoundException;
+import com.pangan.animedb.genre.dao.Genre;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -46,7 +45,7 @@ public class AnimeService {
     }
 
     public AnimeResponseDto addAnime(AnimeRequestDto animeRequestDto) throws IncompleteAnimeFieldsException {
-        if (!StringUtils.hasText(animeRequestDto.name())) {
+        if (isIncompleteAnimeFields(animeRequestDto)) {
             throw new IncompleteAnimeFieldsException();
         }
 
@@ -65,7 +64,7 @@ public class AnimeService {
     }
 
     public AnimeResponseDto updateAnimeById(String id, AnimeRequestDto animeRequestDto) throws IncompleteAnimeFieldsException, NoAnimeFoundException {
-        if (!StringUtils.hasText(animeRequestDto.name())) {
+        if (isIncompleteAnimeFields(animeRequestDto)) {
             throw new IncompleteAnimeFieldsException();
         }
 
@@ -75,6 +74,37 @@ public class AnimeService {
         }
 
         Anime anime = AnimeMapper.mapRequestToAnime(animeRequestDto, optionalAnime.get());
+        Anime updatedAnime = animeRepository.save(anime);
+        return AnimeMapper.mapAnimeToResponse(updatedAnime);
+    }
+
+    private static boolean isIncompleteAnimeFields(AnimeRequestDto animeRequestDto) {
+        return !StringUtils.hasText(animeRequestDto.name())
+                || !StringUtils.hasText(animeRequestDto.background())
+                || !StringUtils.hasText(animeRequestDto.season())
+                || !StringUtils.hasText(animeRequestDto.status())
+                || !StringUtils.hasText(animeRequestDto.studio())
+                || !StringUtils.hasText(animeRequestDto.startDate())
+                || !StringUtils.hasText(animeRequestDto.endDate())
+                || animeRequestDto.episodes() <= -1;
+    }
+
+    public AnimeResponseDto addGenreListToAnimeById(String id, List<Genre> genreList) {
+        if (genreList.isEmpty()) {
+            // throw an exception here.
+        }
+
+        if (!animeRepository.existsById(id)) {
+            // throw an exception here.
+        }
+
+        Optional<Anime> optionalAnime = animeRepository.findById(id);
+        if (optionalAnime.isEmpty()) {
+            // throw an exception here.
+        }
+
+        Anime anime = optionalAnime.get();
+        anime.getGenreList().addAll(genreList);
         Anime updatedAnime = animeRepository.save(anime);
         return AnimeMapper.mapAnimeToResponse(updatedAnime);
     }

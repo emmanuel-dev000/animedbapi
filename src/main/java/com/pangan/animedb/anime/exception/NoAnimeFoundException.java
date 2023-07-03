@@ -1,6 +1,6 @@
 package com.pangan.animedb.anime.exception;
 
-import com.pangan.animedb.global.exception.BusinessException;
+import com.pangan.animedb.exception.BusinessException;
 
 public class NoAnimeFoundException extends BusinessException {
     public static final String TITLE = "No anime found.";

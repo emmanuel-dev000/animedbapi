@@ -1,4 +1,4 @@
-package com.pangan.animedb.global.exception;
+package com.pangan.animedb.exception;
 
 import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.NoAnimeFoundException;
