@@ -16,6 +16,7 @@ The third part for the Spring Boot projects journey.
 - Spring MVC
 - Spring Data MongoDB
 - Spring Security
+- Lombok
 
 ### Frontend
  - Typescript
