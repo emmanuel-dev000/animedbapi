@@ -108,4 +108,16 @@ public class AnimeService {
         Anime updatedAnime = animeRepository.save(anime);
         return AnimeMapper.mapAnimeToResponse(updatedAnime);
     }
+
+    public AnimeResponseDto deleteGenreInAnimeById(String id, Genre genre) {
+        Optional<Anime> optionalAnime = animeRepository.findById(id);
+        if (optionalAnime.isEmpty()) {
+            // throw an exception here.
+        }
+
+        Anime anime = optionalAnime.get();
+        anime.getGenreList().remove(genre);
+        Anime updatedAnime = animeRepository.save(anime);
+        return AnimeMapper.mapAnimeToResponse(updatedAnime);
+    }
 }

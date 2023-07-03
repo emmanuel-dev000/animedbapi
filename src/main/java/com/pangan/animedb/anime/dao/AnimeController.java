@@ -49,4 +49,9 @@ public class AnimeController {
     public ResponseEntity<AnimeResponseDto> addGenreToAnimeById(@PathVariable("id") String id, @RequestBody List<Genre> genreList) {
         return ResponseEntity.ok(animeService.addGenreListToAnimeById(id, genreList));
     }
+
+    @DeleteMapping("{id}/genres")
+    public ResponseEntity<AnimeResponseDto> deleteGenreInAnimeById(@PathVariable("id") String id, @RequestBody Genre genre) {
+        return ResponseEntity.ok(animeService.deleteGenreInAnimeById(id, genre));
+    }
 }
