@@ -4,25 +4,30 @@ This is the backend API of "animedb".
 
 A clone of MyAnimeList, Anilist, and Anime DB.
 
-The third entry for Spring Boot projects journey.
+The third part for the Spring Boot projects journey.
 
-Stacks uses:
-- Spring Boot (Backend)
- - Java
- - Spring MVC
- - Spring Data MongoDB
- - Spring Security
+## Stacks:
 
-- React (Frontend)
+### Backend:
+- Spring Boot
+- Java
+- Spring MVC
+- Spring Data MongoDB
+- Spring Security
+
+### Frontend
  - Typescript
  - Material UI
 
-- MongoDB (Database)
+### Database
+- MongoDB
 
-- Railway.app (Hosting)
+### Hosting
+- Railway.app (for backend) 
+- Github Pages (for frontend, might switch to vercel if it will be easier / free / and less setup.)
 
 Documentation: TBD
 
-Made by Emmanuel Pangan in few weeks.
+Made by Emmanuel Pangan in just a few weeks.
 
 All thanks to the tutorials, and free resources, online.
