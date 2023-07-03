@@ -6,6 +6,8 @@ A clone of MyAnimeList, Anilist, and Anime DB.
 
 The third part for the Spring Boot projects journey.
 
+日本語翻訳もある。(Nihongo honyaku mo aru)
+
 ## Stacks:
 
 ### Backend:
