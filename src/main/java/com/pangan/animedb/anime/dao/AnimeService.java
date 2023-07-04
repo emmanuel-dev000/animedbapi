@@ -4,8 +4,9 @@ import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
 import com.pangan.animedb.anime.mapper.AnimeMapper;
 import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
-import com.pangan.animedb.anime.exception.NoAnimeFoundException;
+import com.pangan.animedb.anime.exception.AnimeNotFoundException;
 import com.pangan.animedb.genre.dao.Genre;
+import com.pangan.animedb.genre.exception.GenreNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -24,10 +25,10 @@ public class AnimeService {
         this.animeRepository = animeRepository;
     }
 
-    public List<AnimeResponseDto> getAllAnime() throws NoAnimeFoundException {
+    public List<AnimeResponseDto> getAllAnime() throws AnimeNotFoundException {
         List<Anime> animeList = animeRepository.findAll();
         if (animeList.isEmpty()) {
-            throw new NoAnimeFoundException();
+            throw new AnimeNotFoundException();
         }
 
         return animeList.stream()
@@ -35,10 +36,10 @@ public class AnimeService {
                     .collect(Collectors.toList());
     }
 
-    public AnimeResponseDto getAnimeById(String id) throws NoAnimeFoundException {
+    public AnimeResponseDto getAnimeById(String id) throws AnimeNotFoundException {
         Optional<Anime> optionalAnime = animeRepository.findById(id);
         if (optionalAnime.isEmpty()) {
-            throw new NoAnimeFoundException();
+            throw new AnimeNotFoundException();
         }
 
         return AnimeMapper.mapAnimeToResponse(optionalAnime.get());
@@ -54,23 +55,23 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(savedAnime);
     }
 
-    public List<AnimeResponseDto> deleteAnimeById(String id) throws NoAnimeFoundException {
+    public List<AnimeResponseDto> deleteAnimeById(String id) throws AnimeNotFoundException {
         if (animeRepository.findById(id).isEmpty()) {
-            throw new NoAnimeFoundException();
+            throw new AnimeNotFoundException();
         }
 
         animeRepository.deleteById(id);
         return getAllAnime();
     }
 
-    public AnimeResponseDto updateAnimeById(String id, AnimeRequestDto animeRequestDto) throws IncompleteAnimeFieldsException, NoAnimeFoundException {
+    public AnimeResponseDto updateAnimeById(String id, AnimeRequestDto animeRequestDto) throws IncompleteAnimeFieldsException, AnimeNotFoundException {
         if (isIncompleteAnimeFields(animeRequestDto)) {
             throw new IncompleteAnimeFieldsException();
         }
 
         Optional<Anime> optionalAnime = animeRepository.findById(id);
         if (optionalAnime.isEmpty()) {
-            throw new NoAnimeFoundException();
+            throw new AnimeNotFoundException();
         }
 
         Anime anime = AnimeMapper.mapRequestToAnime(animeRequestDto, optionalAnime.get());
@@ -89,18 +90,18 @@ public class AnimeService {
                 || animeRequestDto.episodes() <= -1;
     }
 
-    public AnimeResponseDto addGenreListToAnimeById(String id, List<Genre> genreList) {
+    public AnimeResponseDto addGenreListToAnimeById(String id, List<Genre> genreList) throws AnimeNotFoundException, GenreNotFoundException {
         if (genreList.isEmpty()) {
-            // throw an exception here.
+            throw new GenreNotFoundException();
         }
 
         if (!animeRepository.existsById(id)) {
-            // throw an exception here.
+            throw new AnimeNotFoundException();
         }
 
         Optional<Anime> optionalAnime = animeRepository.findById(id);
         if (optionalAnime.isEmpty()) {
-            // throw an exception here.
+            throw new AnimeNotFoundException();
         }
 
         Anime anime = optionalAnime.get();
@@ -109,13 +110,21 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(updatedAnime);
     }
 
-    public AnimeResponseDto deleteGenreInAnimeById(String id, Genre genre) {
+    public AnimeResponseDto deleteGenreInAnimeById(String id, Genre genre) throws AnimeNotFoundException, GenreNotFoundException {
         Optional<Anime> optionalAnime = animeRepository.findById(id);
         if (optionalAnime.isEmpty()) {
-            // throw an exception here.
+            throw new AnimeNotFoundException();
+        }
+
+        if (!StringUtils.hasText(genre.getId()) || !StringUtils.hasText(genre.getName())) {
+            throw new GenreNotFoundException();
         }
 
         Anime anime = optionalAnime.get();
+        if (!anime.getGenreList().contains(genre)) {
+            throw new GenreNotFoundException();
+        }
+
         anime.getGenreList().remove(genre);
         Anime updatedAnime = animeRepository.save(anime);
         return AnimeMapper.mapAnimeToResponse(updatedAnime);

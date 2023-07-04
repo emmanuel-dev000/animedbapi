@@ -1,9 +1,9 @@
 package com.pangan.animedb.exception;
 
-public class BusinessException extends RuntimeException {
+public class ApiException extends RuntimeException {
     private final String title;
 
-    public BusinessException(String title, String message) {
+    public ApiException(String title, String message) {
         super(message);
         this.title = title;
     }

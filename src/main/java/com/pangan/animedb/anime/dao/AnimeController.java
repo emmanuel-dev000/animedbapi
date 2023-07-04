@@ -46,7 +46,7 @@ public class AnimeController {
     }
 
     @PostMapping("/{id}/genres")
-    public ResponseEntity<AnimeResponseDto> addGenreToAnimeById(@PathVariable("id") String id, @RequestBody List<Genre> genreList) {
+    public ResponseEntity<AnimeResponseDto> addGenreListToAnimeById(@PathVariable("id") String id, @RequestBody List<Genre> genreList) {
         return ResponseEntity.ok(animeService.addGenreListToAnimeById(id, genreList));
     }
 
