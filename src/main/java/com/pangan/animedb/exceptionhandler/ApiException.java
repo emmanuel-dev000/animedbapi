@@ -1,4 +1,4 @@
-package com.pangan.animedb.exception;
+package com.pangan.animedb.exceptionhandler;
 
 public class ApiException extends RuntimeException {
     private final String title;

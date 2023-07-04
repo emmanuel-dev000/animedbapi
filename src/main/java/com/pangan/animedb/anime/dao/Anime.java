@@ -1,6 +1,7 @@
 package com.pangan.animedb.anime.dao;
 
 import com.pangan.animedb.genre.dao.Genre;
+import com.pangan.animedb.tag.dao.Tag;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
@@ -36,4 +37,6 @@ public class Anime {
 
     @DBRef
     private List<Genre> genreList = new ArrayList<>();
+    @DBRef
+    private List<Tag> tagList = new ArrayList<>();
 }

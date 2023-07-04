@@ -1,4 +1,4 @@
-package com.pangan.animedb.exception;
+package com.pangan.animedb.exceptionhandler;
 
 import java.time.ZonedDateTime;
 

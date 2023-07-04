@@ -7,6 +7,7 @@ import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.AnimeNotFoundException;
 import com.pangan.animedb.genre.dao.Genre;
 import com.pangan.animedb.genre.exception.GenreNotFoundException;
+import com.pangan.animedb.tag.dao.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -128,5 +129,36 @@ public class AnimeService {
         anime.getGenreList().remove(genre);
         Anime updatedAnime = animeRepository.save(anime);
         return AnimeMapper.mapAnimeToResponse(updatedAnime);
+    }
+
+    public AnimeResponseDto addTagListInAnimeById(String id, List<Tag> tagList) {
+        if (tagList.isEmpty()) {
+            // throw exception
+        }
+
+        if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
+            // throw exception
+        }
+
+        Anime anime = animeRepository.findById(id).get();
+        tagList.stream()
+                .filter(tag -> !anime.getTagList().contains(tag))
+                .forEach(anime.getTagList()::add);
+        animeRepository.save(anime);
+        return AnimeMapper.mapAnimeToResponse(anime);
+    }
+
+    public AnimeResponseDto deleteTagInAnimeById(String id, Tag tag) {
+        if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
+            // throw exception
+        }
+
+        Anime anime =  animeRepository.findById(id).get();
+        if (!anime.getTagList().remove(tag)) {
+            // throw exception
+        }
+
+        Anime savedAnime = animeRepository.save(anime);
+        return AnimeMapper.mapAnimeToResponse(savedAnime);
     }
 }

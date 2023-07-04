@@ -1,6 +1,6 @@
 package com.pangan.animedb.anime.exception;
 
-import com.pangan.animedb.exception.ApiException;
+import com.pangan.animedb.exceptionhandler.ApiException;
 
 public class AnimeNotFoundException extends ApiException {
     public static final String TITLE = "Anime not found.";

@@ -1,6 +1,6 @@
 package com.pangan.animedb.genre.exception;
 
-import com.pangan.animedb.exception.ApiException;
+import com.pangan.animedb.exceptionhandler.ApiException;
 
 public class IncompleteGenreFieldsException extends ApiException {
 
