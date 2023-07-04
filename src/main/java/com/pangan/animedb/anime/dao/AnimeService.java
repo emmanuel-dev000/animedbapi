@@ -5,9 +5,14 @@ import com.pangan.animedb.anime.dto.AnimeResponseDto;
 import com.pangan.animedb.anime.mapper.AnimeMapper;
 import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.AnimeNotFoundException;
+import com.pangan.animedb.character.dao.Character;
+import com.pangan.animedb.character.exception.CharacterNotFoundException;
+import com.pangan.animedb.character.exception.IncompleteCharacterFieldsException;
 import com.pangan.animedb.genre.dao.Genre;
 import com.pangan.animedb.genre.exception.GenreNotFoundException;
 import com.pangan.animedb.tag.dao.Tag;
+import com.pangan.animedb.tag.exception.IncompleteTagFieldsException;
+import com.pangan.animedb.tag.exception.TagNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -33,7 +38,7 @@ public class AnimeService {
         }
 
         return animeList.stream()
-                    .map(anime -> AnimeMapper.mapAnimeToResponse(anime))
+                    .map(AnimeMapper::mapAnimeToResponse)
                     .collect(Collectors.toList());
     }
 
@@ -131,13 +136,13 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(updatedAnime);
     }
 
-    public AnimeResponseDto addTagListInAnimeById(String id, List<Tag> tagList) {
+    public AnimeResponseDto addTagListInAnimeById(String id, List<Tag> tagList) throws TagNotFoundException, IncompleteTagFieldsException {
         if (tagList.isEmpty()) {
-            // throw exception
+            throw new IncompleteTagFieldsException();
         }
 
         if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
-            // throw exception
+            throw new TagNotFoundException();
         }
 
         Anime anime = animeRepository.findById(id).get();
@@ -148,14 +153,54 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(anime);
     }
 
-    public AnimeResponseDto deleteTagInAnimeById(String id, Tag tag) {
+    public AnimeResponseDto deleteTagInAnimeById(String id, Tag tag) throws AnimeNotFoundException {
         if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
-            // throw exception
+            throw new AnimeNotFoundException();
         }
 
         Anime anime =  animeRepository.findById(id).get();
         if (!anime.getTagList().remove(tag)) {
-            // throw exception
+            throw new TagNotFoundException();
+        }
+
+        Anime savedAnime = animeRepository.save(anime);
+        return AnimeMapper.mapAnimeToResponse(savedAnime);
+    }
+
+    public AnimeResponseDto addCharacterListToAnimeById(String id, List<Character> characterList) throws AnimeNotFoundException, IncompleteTagFieldsException {
+        if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
+            throw new AnimeNotFoundException();
+        }
+
+        if (isIncompleteCharacterListFields(characterList)) {
+            throw new IncompleteCharacterFieldsException();
+        }
+
+        Anime anime = animeRepository.findById(id).get();
+        characterList.stream()
+                .filter(character -> !anime.getCharacterList().contains(character))
+                .forEach(anime.getCharacterList()::add);
+        Anime savedAnime = animeRepository.save(anime);
+        return  AnimeMapper.mapAnimeToResponse(savedAnime);
+    }
+
+    private static boolean isIncompleteCharacterListFields(List<Character> characterList) {
+        return characterList.stream()
+                    .anyMatch(character -> !StringUtils.hasText(character.getName())
+                        || !StringUtils.hasText(character.getBackground())
+                        || !StringUtils.hasText(character.getAnimeId())
+                        || !StringUtils.hasText(character.getJapaneseName())
+                        || !StringUtils.hasText(character.getJapaneseBackground()));
+    }
+
+    public AnimeResponseDto deleteCharacterInAnimeById(String id, Character character) throws AnimeNotFoundException, CharacterNotFoundException {
+        if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
+            throw new AnimeNotFoundException();
+        }
+
+        Anime anime = animeRepository.findById(id).get();
+        if (!anime.getCharacterList().remove(character)) {
+             throw new CharacterNotFoundException();
         }
 
         Anime savedAnime = animeRepository.save(anime);

@@ -1,5 +1,6 @@
 package com.pangan.animedb.anime.dto;
 
+import com.pangan.animedb.character.dao.Character;
 import com.pangan.animedb.genre.dao.Genre;
 import com.pangan.animedb.tag.dao.Tag;
 
@@ -18,6 +19,7 @@ public record AnimeRequestDto(
         String japaneseName,
         String japaneseBackground,
         List<Genre> genreList,
-        List<Tag> tagList
+        List<Tag> tagList,
+        List<Character> characterList
 ) {
 }

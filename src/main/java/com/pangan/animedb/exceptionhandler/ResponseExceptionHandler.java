@@ -2,6 +2,8 @@ package com.pangan.animedb.exceptionhandler;
 
 import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.AnimeNotFoundException;
+import com.pangan.animedb.character.exception.CharacterNotFoundException;
+import com.pangan.animedb.character.exception.IncompleteCharacterFieldsException;
 import com.pangan.animedb.genre.exception.GenreNotFoundException;
 import com.pangan.animedb.genre.exception.IncompleteGenreFieldsException;
 import com.pangan.animedb.tag.exception.IncompleteTagFieldsException;
@@ -71,6 +73,26 @@ public class ResponseExceptionHandler {
     @ExceptionHandler
     @ResponseStatus(HttpStatus.NOT_FOUND)
     private ResponseEntity<ResponseExceptionDto> handleIncompleteTagFieldsException(IncompleteTagFieldsException e) {
+        ResponseExceptionDto exception = new ResponseExceptionDto(
+                e.getTitle(),
+                e.getMessage(),
+                ZonedDateTime.now(ZoneId.of("Z")));
+        return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    private ResponseEntity<ResponseExceptionDto> handleIncompleteCharacterFieldsException(IncompleteCharacterFieldsException e) {
+        ResponseExceptionDto exception = new ResponseExceptionDto(
+                e.getTitle(),
+                e.getMessage(),
+                ZonedDateTime.now(ZoneId.of("Z")));
+        return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
+    }
+
+    @ExceptionHandler
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    private ResponseEntity<ResponseExceptionDto> handleCharacterNotFoundException(CharacterNotFoundException e) {
         ResponseExceptionDto exception = new ResponseExceptionDto(
                 e.getTitle(),
                 e.getMessage(),

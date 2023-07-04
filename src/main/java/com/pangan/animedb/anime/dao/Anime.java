@@ -1,6 +1,7 @@
 package com.pangan.animedb.anime.dao;
 
 import com.pangan.animedb.genre.dao.Genre;
+import com.pangan.animedb.character.dao.Character;
 import com.pangan.animedb.tag.dao.Tag;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -32,11 +33,12 @@ public class Anime {
     private String japaneseName;
     private String japaneseBackground;
 
-//    @DBRef
-//    private List<Character> characterList;
-
     @DBRef
     private List<Genre> genreList = new ArrayList<>();
+
     @DBRef
     private List<Tag> tagList = new ArrayList<>();
+
+    @DBRef
+    private List<Character> characterList = new ArrayList<>();
 }

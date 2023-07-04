@@ -24,6 +24,7 @@ public class AnimeMapper {
         anime.setJapaneseBackground(animeRequestDto.japaneseBackground());
         anime.setGenreList(animeRequestDto.genreList());
         anime.setTagList(animeRequestDto.tagList());
+        anime.setCharacterList(animeRequestDto.characterList());
         return anime;
     }
 
@@ -42,7 +43,8 @@ public class AnimeMapper {
                 anime.getJapaneseName(),
                 anime.getJapaneseBackground(),
                 anime.getGenreList(),
-                anime.getTagList()
+                anime.getTagList(),
+                anime.getCharacterList()
         );
     }
 }
