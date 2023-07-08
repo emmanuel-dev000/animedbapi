@@ -1,7 +1,6 @@
 package com.pangan.animedb.anime.dao;
 
 import com.pangan.animedb.genre.dao.Genre;
-import com.pangan.animedb.character.dao.Character;
 import com.pangan.animedb.tag.dao.Tag;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -21,17 +20,20 @@ public class Anime {
     private String id;
 
     @Indexed(unique = true)
-    private String name;
-    private String background;
+    private String title;
+    private Integer rating;
+    private String synopsis;
+
+    private String japaneseTitle;
+    private String japaneseTitleHiragana;
+    private String japaneseSynopsis;
+
+    private String dateAired;
+    private String dateFinished;
+
     private Integer episodes;
-    private String status;
-    private String season;
     private String studio;
-    private String startDate;
-    private String endDate;
-    private String imageUrl;
-    private String japaneseName;
-    private String japaneseBackground;
+    private String duration;
 
     @DBRef
     private List<Genre> genreList = new ArrayList<>();
@@ -39,6 +41,5 @@ public class Anime {
     @DBRef
     private List<Tag> tagList = new ArrayList<>();
 
-    @DBRef
-    private List<Character> characterList = new ArrayList<>();
+    private String imageUrl;
 }

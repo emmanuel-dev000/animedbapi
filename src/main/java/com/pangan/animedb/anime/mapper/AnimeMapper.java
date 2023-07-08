@@ -11,8 +11,8 @@ public class AnimeMapper {
     }
 
     public static Anime mapRequestToAnime(AnimeRequestDto animeRequestDto, Anime anime) {
-        anime.setName(animeRequestDto.name());
-        anime.setBackground(animeRequestDto.background());
+        anime.setTitle(animeRequestDto.name());
+        anime.setSynopsis(animeRequestDto.background());
         anime.setEpisodes(animeRequestDto.episodes());
         anime.setSeason(animeRequestDto.season());
         anime.setStudio(animeRequestDto.studio());
@@ -20,8 +20,8 @@ public class AnimeMapper {
         anime.setStartDate(animeRequestDto.startDate());
         anime.setEndDate(animeRequestDto.endDate());
         anime.setImageUrl(animeRequestDto.imageUrl());
-        anime.setJapaneseName(animeRequestDto.japaneseName());
-        anime.setJapaneseBackground(animeRequestDto.japaneseBackground());
+        anime.setJapaneseTitle(animeRequestDto.japaneseName());
+        anime.setJapaneseSynopsis(animeRequestDto.japaneseBackground());
         anime.setGenreList(animeRequestDto.genreList());
         anime.setTagList(animeRequestDto.tagList());
         anime.setCharacterList(animeRequestDto.characterList());
@@ -31,8 +31,8 @@ public class AnimeMapper {
     public static AnimeResponseDto mapAnimeToResponse(Anime anime) {
         return new AnimeResponseDto(
                 anime.getId(),
-                anime.getName(),
-                anime.getBackground(),
+                anime.getTitle(),
+                anime.getSynopsis(),
                 anime.getEpisodes(),
                 anime.getStatus(),
                 anime.getSeason(),
@@ -40,8 +40,8 @@ public class AnimeMapper {
                 anime.getStartDate(),
                 anime.getEndDate(),
                 anime.getImageUrl(),
-                anime.getJapaneseName(),
-                anime.getJapaneseBackground(),
+                anime.getJapaneseTitle(),
+                anime.getJapaneseSynopsis(),
                 anime.getGenreList(),
                 anime.getTagList(),
                 anime.getCharacterList()
