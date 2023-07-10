@@ -26,7 +26,7 @@ The third part for the Spring Boot projects journey.
 - MongoDB
 
 ### Hosting
-- Railway.app (for backend) 
+- Render.com (for backend) 
 - Github Pages (for frontend, might switch to vercel if it will be easier / free / and less setup.)
 
 Documentation: TBD
