@@ -19,7 +19,7 @@ public class AnimeMapper {
                 .synopsis(animeRequestDto.synopsis())
 
                 .japaneseTitle(animeRequestDto.japaneseTitle())
-                .japaneseTitleHiragana(animeRequestDto.japaneseTitleHirgana())
+                .japaneseTitleHiragana(animeRequestDto.japaneseTitleHiragana())
                 .japaneseSynopsis(animeRequestDto.japaneseSynopsis())
 
                 .dateAired(animeRequestDto.dateAired())
@@ -43,7 +43,7 @@ public class AnimeMapper {
                 .synopsis(anime.getSynopsis())
 
                 .japaneseTitle(anime.getJapaneseTitle())
-                .japaneseTitleHirgana(anime.getJapaneseTitleHiragana())
+                .japaneseTitleHiragana(anime.getJapaneseTitleHiragana())
                 .japaneseSynopsis(anime.getJapaneseSynopsis())
 
                 .dateAired(anime.getDateAired())

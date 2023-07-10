@@ -15,7 +15,7 @@ public record AnimeResponseDto(
         String synopsis,
 
         String japaneseTitle,
-        String japaneseTitleHirgana,
+        String japaneseTitleHiragana,
         String japaneseSynopsis,
 
         String dateAired,
