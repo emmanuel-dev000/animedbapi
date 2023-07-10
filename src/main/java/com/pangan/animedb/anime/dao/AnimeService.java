@@ -67,6 +67,16 @@ public class AnimeService {
         return getAllAnime();
     }
 
+    public List<AnimeResponseDto> deleteAnimeListByAnimeIdList(List<String> animeIdList) throws AnimeNotFoundException {
+        if (animeIdList.isEmpty()) {
+            throw new AnimeNotFoundException();
+        }
+
+        animeRepository.deleteAllById(animeIdList);
+
+        return getAllAnime();
+    }
+
     public AnimeResponseDto updateAnimeById(String id, AnimeRequestDto animeRequestDto) throws IncompleteAnimeFieldsException, AnimeNotFoundException {
         if (isIncompleteAnimeFields(animeRequestDto)) {
             throw new IncompleteAnimeFieldsException();
@@ -136,7 +146,7 @@ public class AnimeService {
 
     public AnimeResponseDto addTagListInAnimeById(String id, List<Tag> tagList) throws TagNotFoundException, IncompleteTagFieldsException {
         if (tagList.isEmpty()) {
-            throw new IncompleteTagFieldsException();
+            throw new TagNotFoundException();
         }
 
         if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {

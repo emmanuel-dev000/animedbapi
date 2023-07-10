@@ -2,8 +2,6 @@ package com.pangan.animedb.exceptionhandler;
 
 import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.AnimeNotFoundException;
-import com.pangan.animedb.character.exception.CharacterNotFoundException;
-import com.pangan.animedb.character.exception.IncompleteCharacterFieldsException;
 import com.pangan.animedb.genre.exception.GenreNotFoundException;
 import com.pangan.animedb.genre.exception.IncompleteGenreFieldsException;
 import com.pangan.animedb.tag.exception.IncompleteTagFieldsException;

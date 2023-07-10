@@ -2,7 +2,6 @@ package com.pangan.animedb.anime.dao;
 
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
-import com.pangan.animedb.character.dao.Character;
 import com.pangan.animedb.genre.dao.Genre;
 import com.pangan.animedb.tag.dao.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +34,11 @@ public class AnimeController {
     @PostMapping
     public ResponseEntity<AnimeResponseDto> addAnime(@RequestBody AnimeRequestDto animeRequestDto) {
         return ResponseEntity.ok(animeService.addAnime(animeRequestDto));
+    }
+
+    @DeleteMapping
+    public ResponseEntity<List<AnimeResponseDto>> deleteAnimeListByAnimeIdList(@RequestBody List<String> animeIdList) {
+        return ResponseEntity.ok(animeService.deleteAnimeListByAnimeIdList(animeIdList));
     }
 
     @DeleteMapping("/{id}")
