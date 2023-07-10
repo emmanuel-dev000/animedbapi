@@ -5,9 +5,6 @@ import com.pangan.animedb.anime.dto.AnimeResponseDto;
 import com.pangan.animedb.anime.mapper.AnimeMapper;
 import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.AnimeNotFoundException;
-import com.pangan.animedb.character.dao.Character;
-import com.pangan.animedb.character.exception.CharacterNotFoundException;
-import com.pangan.animedb.character.exception.IncompleteCharacterFieldsException;
 import com.pangan.animedb.genre.dao.Genre;
 import com.pangan.animedb.genre.exception.GenreNotFoundException;
 import com.pangan.animedb.tag.dao.Tag;
@@ -85,16 +82,16 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(updatedAnime);
     }
 
-    private static boolean isIncompleteAnimeFields(AnimeRequestDto animeRequestDto) {
-//        return !StringUtils.hasText(animeRequestDto.title())
-//                || !StringUtils.hasText(animeRequestDto.synopsis())
-//                || !StringUtils.hasText(animeRequestDto.season())
-//                || !StringUtils.hasText(animeRequestDto.status())
-//                || !StringUtils.hasText(animeRequestDto.studio())
-//                || !StringUtils.hasText(animeRequestDto.dateAired())
-//                || !StringUtils.hasText(animeRequestDto.dateFinished())
-//                || animeRequestDto.episodes() <= -1;
-    return true;
+    public static boolean isIncompleteAnimeFields(AnimeRequestDto animeRequestDto) {
+        return !StringUtils.hasText(animeRequestDto.title())
+                || !StringUtils.hasText(animeRequestDto.synopsis())
+                || !StringUtils.hasText(animeRequestDto.dateAired())
+                || !StringUtils.hasText(animeRequestDto.dateFinished())
+                || !StringUtils.hasText(animeRequestDto.studio())
+                || !StringUtils.hasText(animeRequestDto.duration())
+                || !StringUtils.hasText(animeRequestDto.imageUrl())
+                || animeRequestDto.rating() <= -1
+                || animeRequestDto.episodes() <= -1;
     }
 
     public AnimeResponseDto addGenreListToAnimeById(String id, List<Genre> genreList) throws AnimeNotFoundException, GenreNotFoundException {

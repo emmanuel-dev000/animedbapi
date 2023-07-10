@@ -79,24 +79,4 @@ public class ResponseExceptionHandler {
                 ZonedDateTime.now(ZoneId.of("Z")));
         return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
     }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    private ResponseEntity<ResponseExceptionDto> handleIncompleteCharacterFieldsException(IncompleteCharacterFieldsException e) {
-        ResponseExceptionDto exception = new ResponseExceptionDto(
-                e.getTitle(),
-                e.getMessage(),
-                ZonedDateTime.now(ZoneId.of("Z")));
-        return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    private ResponseEntity<ResponseExceptionDto> handleCharacterNotFoundException(CharacterNotFoundException e) {
-        ResponseExceptionDto exception = new ResponseExceptionDto(
-                e.getTitle(),
-                e.getMessage(),
-                ZonedDateTime.now(ZoneId.of("Z")));
-        return new ResponseEntity<>(exception, HttpStatus.NOT_FOUND);
-    }
 }
