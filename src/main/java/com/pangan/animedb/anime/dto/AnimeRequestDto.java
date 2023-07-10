@@ -1,25 +1,23 @@
 package com.pangan.animedb.anime.dto;
 
-import com.pangan.animedb.character.dao.Character;
-import com.pangan.animedb.genre.dao.Genre;
-import com.pangan.animedb.tag.dao.Tag;
+import lombok.Builder;
 
-import java.util.List;
-
+@Builder
 public record AnimeRequestDto(
-        String name,
-        String background,
+        String title,
+        Float rating,
+        String synopsis,
+
+        String japaneseTitle,
+        String japaneseTitleHirgana,
+        String japaneseSynopsis,
+
+        String dateAired,
+        String dateFinished,
+
         Integer episodes,
-        String status,
-        String season,
         String studio,
-        String startDate,
-        String endDate,
-        String imageUrl,
-        String japaneseName,
-        String japaneseBackground,
-        List<Genre> genreList,
-        List<Tag> tagList,
-        List<Character> characterList
+        String duration,
+        String imageUrl
 ) {
 }

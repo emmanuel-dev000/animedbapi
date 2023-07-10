@@ -66,14 +66,4 @@ public class AnimeController {
     public ResponseEntity<AnimeResponseDto> deleteTagInAnimeById(@PathVariable("id") String id, @RequestBody Tag tag) {
         return ResponseEntity.ok(animeService.deleteTagInAnimeById(id, tag));
     }
-
-    @PostMapping("{id}/characters")
-    public ResponseEntity<AnimeResponseDto> addCharacterListToAnimeById(@PathVariable("id") String id, @RequestBody List<Character> characterList) {
-        return ResponseEntity.ok(animeService.addCharacterListToAnimeById(id, characterList));
-    }
-
-    @DeleteMapping("{id}/characters")
-    public ResponseEntity<AnimeResponseDto> deleteCharacterInAnimeById(@PathVariable("id") String id, @RequestBody Character character) {
-        return ResponseEntity.ok(animeService.deleteCharacterInAnimeById(id, character));
-    }
 }

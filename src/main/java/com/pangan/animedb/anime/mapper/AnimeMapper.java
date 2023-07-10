@@ -11,40 +11,53 @@ public class AnimeMapper {
     }
 
     public static Anime mapRequestToAnime(AnimeRequestDto animeRequestDto, Anime anime) {
-        anime.setTitle(animeRequestDto.name());
-        anime.setSynopsis(animeRequestDto.background());
-        anime.setEpisodes(animeRequestDto.episodes());
-        anime.setSeason(animeRequestDto.season());
-        anime.setStudio(animeRequestDto.studio());
-        anime.setStatus(animeRequestDto.status());
-        anime.setStartDate(animeRequestDto.startDate());
-        anime.setEndDate(animeRequestDto.endDate());
-        anime.setImageUrl(animeRequestDto.imageUrl());
-        anime.setJapaneseTitle(animeRequestDto.japaneseName());
-        anime.setJapaneseSynopsis(animeRequestDto.japaneseBackground());
-        anime.setGenreList(animeRequestDto.genreList());
-        anime.setTagList(animeRequestDto.tagList());
-        anime.setCharacterList(animeRequestDto.characterList());
-        return anime;
+        Anime mappedRequestToAnime = Anime.builder()
+                .id(anime.getId())
+
+                .title(animeRequestDto.title())
+                .rating(animeRequestDto.rating())
+                .synopsis(animeRequestDto.synopsis())
+
+                .japaneseTitle(animeRequestDto.japaneseTitle())
+                .japaneseTitleHiragana(animeRequestDto.japaneseTitleHirgana())
+                .japaneseSynopsis(animeRequestDto.japaneseSynopsis())
+
+                .dateAired(animeRequestDto.dateAired())
+                .dateFinished(animeRequestDto.dateFinished())
+
+                .episodes(animeRequestDto.episodes())
+                .studio(animeRequestDto.studio())
+                .duration(animeRequestDto.duration())
+                .imageUrl(animeRequestDto.imageUrl())
+                .build();
+
+        return mappedRequestToAnime;
     }
 
     public static AnimeResponseDto mapAnimeToResponse(Anime anime) {
-        return new AnimeResponseDto(
-                anime.getId(),
-                anime.getTitle(),
-                anime.getSynopsis(),
-                anime.getEpisodes(),
-                anime.getStatus(),
-                anime.getSeason(),
-                anime.getStudio(),
-                anime.getStartDate(),
-                anime.getEndDate(),
-                anime.getImageUrl(),
-                anime.getJapaneseTitle(),
-                anime.getJapaneseSynopsis(),
-                anime.getGenreList(),
-                anime.getTagList(),
-                anime.getCharacterList()
-        );
+        AnimeResponseDto mappedAnimeToResponse = AnimeResponseDto.builder()
+                .id(anime.getId())
+
+                .title(anime.getTitle())
+                .rating(anime.getRating())
+                .synopsis(anime.getSynopsis())
+
+                .japaneseTitle(anime.getJapaneseTitle())
+                .japaneseTitleHirgana(anime.getJapaneseTitleHiragana())
+                .japaneseSynopsis(anime.getJapaneseSynopsis())
+
+                .dateAired(anime.getDateAired())
+                .dateFinished(anime.getDateFinished())
+
+                .episodes(anime.getEpisodes())
+                .studio(anime.getStudio())
+                .duration(anime.getDuration())
+                .imageUrl(anime.getImageUrl())
+
+                .genreList(anime.getGenreList())
+                .tagList(anime.getTagList())
+                .build();
+
+        return  mappedAnimeToResponse;
     }
 }

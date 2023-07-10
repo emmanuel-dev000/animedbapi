@@ -86,14 +86,15 @@ public class AnimeService {
     }
 
     private static boolean isIncompleteAnimeFields(AnimeRequestDto animeRequestDto) {
-        return !StringUtils.hasText(animeRequestDto.name())
-                || !StringUtils.hasText(animeRequestDto.background())
-                || !StringUtils.hasText(animeRequestDto.season())
-                || !StringUtils.hasText(animeRequestDto.status())
-                || !StringUtils.hasText(animeRequestDto.studio())
-                || !StringUtils.hasText(animeRequestDto.startDate())
-                || !StringUtils.hasText(animeRequestDto.endDate())
-                || animeRequestDto.episodes() <= -1;
+//        return !StringUtils.hasText(animeRequestDto.title())
+//                || !StringUtils.hasText(animeRequestDto.synopsis())
+//                || !StringUtils.hasText(animeRequestDto.season())
+//                || !StringUtils.hasText(animeRequestDto.status())
+//                || !StringUtils.hasText(animeRequestDto.studio())
+//                || !StringUtils.hasText(animeRequestDto.dateAired())
+//                || !StringUtils.hasText(animeRequestDto.dateFinished())
+//                || animeRequestDto.episodes() <= -1;
+    return true;
     }
 
     public AnimeResponseDto addGenreListToAnimeById(String id, List<Genre> genreList) throws AnimeNotFoundException, GenreNotFoundException {
@@ -161,46 +162,6 @@ public class AnimeService {
         Anime anime =  animeRepository.findById(id).get();
         if (!anime.getTagList().remove(tag)) {
             throw new TagNotFoundException();
-        }
-
-        Anime savedAnime = animeRepository.save(anime);
-        return AnimeMapper.mapAnimeToResponse(savedAnime);
-    }
-
-    public AnimeResponseDto addCharacterListToAnimeById(String id, List<Character> characterList) throws AnimeNotFoundException, IncompleteTagFieldsException {
-        if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
-            throw new AnimeNotFoundException();
-        }
-
-        if (isIncompleteCharacterListFields(characterList)) {
-            throw new IncompleteCharacterFieldsException();
-        }
-
-        Anime anime = animeRepository.findById(id).get();
-        characterList.stream()
-                .filter(character -> !anime.getCharacterList().contains(character))
-                .forEach(anime.getCharacterList()::add);
-        Anime savedAnime = animeRepository.save(anime);
-        return  AnimeMapper.mapAnimeToResponse(savedAnime);
-    }
-
-    private static boolean isIncompleteCharacterListFields(List<Character> characterList) {
-        return characterList.stream()
-                    .anyMatch(character -> !StringUtils.hasText(character.getName())
-                        || !StringUtils.hasText(character.getBackground())
-                        || !StringUtils.hasText(character.getAnimeId())
-                        || !StringUtils.hasText(character.getJapaneseName())
-                        || !StringUtils.hasText(character.getJapaneseBackground()));
-    }
-
-    public AnimeResponseDto deleteCharacterInAnimeById(String id, Character character) throws AnimeNotFoundException, CharacterNotFoundException {
-        if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
-            throw new AnimeNotFoundException();
-        }
-
-        Anime anime = animeRepository.findById(id).get();
-        if (!anime.getCharacterList().remove(character)) {
-             throw new CharacterNotFoundException();
         }
 
         Anime savedAnime = animeRepository.save(anime);
