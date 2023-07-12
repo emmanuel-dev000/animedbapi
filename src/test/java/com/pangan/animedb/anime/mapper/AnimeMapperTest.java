@@ -77,7 +77,7 @@ class AnimeMapperTest {
     }
 
     @Test
-    public void animeMapper_mapAnimeStreamToResponseList() {
+    public void animeMapper_mapAnimeStreamToResponseList_ReturnsAnimeResponseDtoList() {
         var mappedAnimeStreamToResponseList = AnimeMapper.mapAnimeStreamToResponseList(animeList.stream());
 
         Assertions.assertThat(mappedAnimeStreamToResponseList).isNotNull();
