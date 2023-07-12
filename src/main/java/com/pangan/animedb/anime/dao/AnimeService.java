@@ -2,6 +2,7 @@ package com.pangan.animedb.anime.dao;
 
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
+import com.pangan.animedb.anime.dto.AnimeResponsePageDto;
 import com.pangan.animedb.anime.mapper.AnimeMapper;
 import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.AnimeNotFoundException;
@@ -11,12 +12,14 @@ import com.pangan.animedb.tag.dao.Tag;
 import com.pangan.animedb.tag.exception.IncompleteTagFieldsException;
 import com.pangan.animedb.tag.exception.TagNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class AnimeService {
@@ -34,9 +37,23 @@ public class AnimeService {
             throw new AnimeNotFoundException();
         }
 
-        return animeList.stream()
-                    .map(AnimeMapper::mapAnimeToResponse)
-                    .collect(Collectors.toList());
+        return AnimeMapper.mapAnimeStreamToResponseList(animeList.stream());
+    }
+
+    public AnimeResponsePageDto getAllAnimeInPage(Integer pageNumber, Integer pageSize) {
+        if (pageNumber == null || pageSize == null) {
+            // Return getAllAnime();
+        }
+
+        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Page<Anime> animePage = animeRepository.findAll(pageable);
+        return AnimeResponsePageDto.builder()
+                .pageNumber(animePage.getPageable().getPageNumber())
+                .pageSize(animePage.getPageable().getPageSize())
+                .totalPages(animePage.getTotalPages())
+                .totalElements(animePage.getTotalElements())
+                .animeContentList(AnimeMapper.mapAnimeStreamToResponseList(animePage.stream()))
+                .build();
     }
 
     public AnimeResponseDto getAnimeById(String id) throws AnimeNotFoundException {
