@@ -4,6 +4,10 @@ import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
 import com.pangan.animedb.anime.dao.Anime;
 
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public class AnimeMapper {
 
     public static Anime mapRequestToAnime(AnimeRequestDto animeRequestDto) {
@@ -59,5 +63,11 @@ public class AnimeMapper {
                 .build();
 
         return  mappedAnimeToResponse;
+    }
+
+    public static List<AnimeResponseDto> mapAnimeStreamToResponseList(Stream<Anime> animeStream) {
+        return animeStream
+                .map(anime -> mapAnimeToResponse(anime))
+                .collect(Collectors.toList());
     }
 }

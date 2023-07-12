@@ -7,12 +7,15 @@ import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 class AnimeMapperTest {
 
     private AnimeRequestDto animeRequestDto;
     private Anime anime;
+    private List<Anime> animeList = new ArrayList<>();
 
     @BeforeEach
     public void init() {
@@ -51,6 +54,10 @@ class AnimeMapperTest {
                 .duration("24 minutes")
                 .imageUrl("https://fav.ico/")
                 .build();
+
+        for (int i = 0; i < 5; i++) {
+            animeList.add(anime);
+        }
     }
 
     @Test
@@ -67,5 +74,15 @@ class AnimeMapperTest {
 
         Assertions.assertThat(mappedAnimeToResponse.getClass()).isEqualTo(AnimeResponseDto.class);
         Assertions.assertThat(mappedAnimeToResponse.id()).isEqualTo(anime.getId());
+    }
+
+    @Test
+    public void animeMapper_mapAnimeStreamToResponseList() {
+        var mappedAnimeStreamToResponseList = AnimeMapper.mapAnimeStreamToResponseList(animeList.stream());
+
+        Assertions.assertThat(mappedAnimeStreamToResponseList).isNotNull();
+        Assertions.assertThat(mappedAnimeStreamToResponseList).isNotEmpty();
+        Assertions.assertThat(mappedAnimeStreamToResponseList.get(0)).isNotNull();
+        Assertions.assertThat(mappedAnimeStreamToResponseList.get(0).getClass()).isEqualTo(AnimeResponseDto.class);
     }
 }
