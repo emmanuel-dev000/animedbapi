@@ -19,7 +19,10 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableWebMvc
 public class WebSecurityConfig {
 
-    public static final String AUTHORIZED_URL = "api/v1/auth/**";
+    public static final String AUTH_URL_PATTERN = "api/v1/auth/**";
+    public static final String ANIME_URL_PATTERN = "api/v1/anime/**";
+    public static final String GENRES_URL_PATTERN = "api/v1/genres/**";
+    public static final String TAGS_URL_PATTERN = "api/v1/tags/**";
     private final JwtAuthEntryPoint jwtAuthEntryPoint;
 
     @Autowired
@@ -39,12 +42,13 @@ public class WebSecurityConfig {
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers(AUTHORIZED_URL)
+                .requestMatchers(AUTH_URL_PATTERN, ANIME_URL_PATTERN, GENRES_URL_PATTERN, TAGS_URL_PATTERN)
                 .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()
                 .httpBasic();
+
 
         httpSecurity.addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class);
         return httpSecurity.build();
