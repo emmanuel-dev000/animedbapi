@@ -2,7 +2,7 @@ package com.pangan.animedb.anime.dao;
 
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
-import com.pangan.animedb.anime.dto.AnimeResponsePageDto;
+import com.pangan.animedb.anime.dto.AnimePageDto;
 import com.pangan.animedb.genre.dao.Genre;
 import com.pangan.animedb.tag.dao.Tag;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +29,7 @@ public class AnimeController {
     }
 
     @GetMapping("/")
-    public ResponseEntity<AnimeResponsePageDto> getAllAnime(
+    public ResponseEntity<AnimePageDto> getAllAnime(
             @RequestParam("pageNumber") Integer pageNumber,
             @RequestParam("pageSize") Integer pageSize) {
         return ResponseEntity.ok(animeService.getAllAnimeInPage(pageNumber, pageSize));

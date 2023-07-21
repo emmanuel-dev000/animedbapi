@@ -1,5 +1,6 @@
 package com.pangan.animedb.anime.mapper;
 
+import com.pangan.animedb.anime.dto.AnimeDefaultDetailsDto;
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
 import com.pangan.animedb.anime.dao.Anime;
@@ -65,9 +66,27 @@ public class AnimeMapper {
         return  mappedAnimeToResponse;
     }
 
+    @Deprecated
     public static List<AnimeResponseDto> mapAnimeStreamToResponseList(Stream<Anime> animeStream) {
         return animeStream
                 .map(anime -> mapAnimeToResponse(anime))
                 .collect(Collectors.toList());
+    }
+
+    public static List<AnimeDefaultDetailsDto> mapAnimeStreamToDefaultDetailsList(Stream<Anime> animeStream) {
+        return animeStream
+                .map(anime -> mapAnimeToAnimeDefaultDetails(anime))
+                .collect(Collectors.toList());
+    }
+
+    public static AnimeDefaultDetailsDto mapAnimeToAnimeDefaultDetails(Anime anime) {
+        return AnimeDefaultDetailsDto.builder()
+                .id(anime.getId())
+                .title(anime.getTitle())
+                .japaneseTitle(anime.getJapaneseTitle())
+                .studio(anime.getStudio())
+                .episodes(anime.getEpisodes())
+                .duration(anime.getDuration())
+                .build();
     }
 }

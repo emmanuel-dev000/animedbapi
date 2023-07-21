@@ -5,11 +5,11 @@ import lombok.Builder;
 import java.util.List;
 
 @Builder
-public record AnimeResponsePageDto(
+public record AnimePageDto(
         Integer pageNumber,
         Integer pageSize,
         Long totalElements,
         Integer totalPages,
-        List<AnimeResponseDto> animeContentList
+        List<AnimeDefaultDetailsDto> animeContentList
 ) {
 }

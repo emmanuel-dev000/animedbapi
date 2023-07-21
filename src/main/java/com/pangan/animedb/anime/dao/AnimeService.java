@@ -2,7 +2,7 @@ package com.pangan.animedb.anime.dao;
 
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
-import com.pangan.animedb.anime.dto.AnimeResponsePageDto;
+import com.pangan.animedb.anime.dto.AnimePageDto;
 import com.pangan.animedb.anime.mapper.AnimeMapper;
 import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.AnimeNotFoundException;
@@ -40,19 +40,19 @@ public class AnimeService {
         return AnimeMapper.mapAnimeStreamToResponseList(animeList.stream());
     }
 
-    public AnimeResponsePageDto getAllAnimeInPage(Integer pageNumber, Integer pageSize) {
+    public AnimePageDto getAllAnimeInPage(Integer pageNumber, Integer pageSize) {
         if (pageNumber == null || pageSize == null) {
             // Return getAllAnime();
         }
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
         Page<Anime> animePage = animeRepository.findAll(pageable);
-        return AnimeResponsePageDto.builder()
+        return AnimePageDto.builder()
                 .pageNumber(animePage.getPageable().getPageNumber())
                 .pageSize(animePage.getPageable().getPageSize())
                 .totalPages(animePage.getTotalPages())
                 .totalElements(animePage.getTotalElements())
-                .animeContentList(AnimeMapper.mapAnimeStreamToResponseList(animePage.stream()))
+                .animeContentList(AnimeMapper.mapAnimeStreamToDefaultDetailsList(animePage.stream()))
                 .build();
     }
 
