@@ -51,7 +51,7 @@ public class AnimeController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<List<AnimeResponseDto>> deleteAnimeById(@PathVariable("id") String id) {
+    public ResponseEntity<AnimePageDto> deleteAnimeById(@PathVariable("id") String id) {
         return ResponseEntity.ok(animeService.deleteAnimeById(id));
     }
 

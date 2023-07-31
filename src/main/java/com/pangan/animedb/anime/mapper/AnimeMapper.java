@@ -4,6 +4,7 @@ import com.pangan.animedb.anime.dto.AnimeDefaultDetailsDto;
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
 import com.pangan.animedb.anime.dao.Anime;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -83,10 +84,6 @@ public class AnimeMapper {
         return AnimeDefaultDetailsDto.builder()
                 .id(anime.getId())
                 .title(anime.getTitle())
-                .japaneseTitle(anime.getJapaneseTitle())
-                .studio(anime.getStudio())
-                .episodes(anime.getEpisodes())
-                .duration(anime.getDuration())
                 .build();
     }
 }

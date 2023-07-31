@@ -24,6 +24,8 @@ import java.util.Optional;
 @Service
 public class AnimeService {
 
+    public static final int DEFAULT_PAGE_NUMBER = 0;
+    public static final int DEFAULT_PAGE_SIZE = 5;
     private final AnimeRepository animeRepository;
 
     @Autowired
@@ -31,6 +33,7 @@ public class AnimeService {
         this.animeRepository = animeRepository;
     }
 
+    @Deprecated
     public List<AnimeResponseDto> getAllAnime() throws AnimeNotFoundException {
         List<Anime> animeList = animeRepository.findAll();
         if (animeList.isEmpty()) {
@@ -40,9 +43,14 @@ public class AnimeService {
         return AnimeMapper.mapAnimeStreamToResponseList(animeList.stream());
     }
 
-    public AnimePageDto getAllAnimeInPage(Integer pageNumber, Integer pageSize) {
-        if (pageNumber == null || pageSize == null) {
-            // Return getAllAnime();
+    public AnimePageDto getAllAnimeInPage(Integer pageNumber , Integer pageSize) throws AnimeNotFoundException {
+        if (pageNumber.describeConstable().isEmpty() || pageSize.describeConstable().isEmpty()) {
+            pageNumber = DEFAULT_PAGE_NUMBER;
+            pageSize = DEFAULT_PAGE_SIZE;
+        }
+
+        if (animeRepository.findAll().isEmpty()) {
+            throw new AnimeNotFoundException();
         }
 
         Pageable pageable = PageRequest.of(pageNumber, pageSize);
@@ -75,13 +83,13 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(savedAnime);
     }
 
-    public List<AnimeResponseDto> deleteAnimeById(String id) throws AnimeNotFoundException {
+    public AnimePageDto deleteAnimeById(String id) throws AnimeNotFoundException {
         if (animeRepository.findById(id).isEmpty()) {
             throw new AnimeNotFoundException();
         }
 
         animeRepository.deleteById(id);
-        return getAllAnime();
+        return getAllAnimeInPage(DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
     }
 
     public List<AnimeResponseDto> deleteAnimeListByAnimeIdList(List<String> animeIdList) throws AnimeNotFoundException {
