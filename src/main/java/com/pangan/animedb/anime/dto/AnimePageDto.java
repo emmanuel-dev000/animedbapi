@@ -10,6 +10,6 @@ public record AnimePageDto(
         Integer pageSize,
         Long totalElements,
         Integer totalPages,
-        List<AnimeDefaultDetailsDto> animeContentList
+        List<AnimeDefaultDetailDto> animeContentList
 ) {
 }

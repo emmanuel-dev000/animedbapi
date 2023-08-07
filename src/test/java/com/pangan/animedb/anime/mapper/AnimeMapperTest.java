@@ -1,7 +1,8 @@
 package com.pangan.animedb.anime.mapper;
 
 import com.pangan.animedb.anime.dao.Anime;
-import com.pangan.animedb.anime.dto.AnimeDefaultDetailsDto;
+import com.pangan.animedb.anime.dto.AnimeDefaultDetailDto;
+import com.pangan.animedb.anime.dto.AnimeImageDetailDto;
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
 import org.assertj.core.api.Assertions;
@@ -78,12 +79,20 @@ class AnimeMapperTest {
     }
 
     @Test
+    public void animeMapper_mapAnimeToImageDetail_ReturnsAnimeImageDetailDto() {
+        var mappedAnimeToImageDetail = AnimeMapper.mapAnimeToImageDetail(anime);
+
+        Assertions.assertThat(mappedAnimeToImageDetail.getClass()).isEqualTo(AnimeImageDetailDto.class);
+        Assertions.assertThat(mappedAnimeToImageDetail.id()).isEqualTo(anime.getId());
+    }
+
+    @Test
     public void animeMapper_mapAnimeStreamToResponseList_ReturnsAnimeResponseDtoList() {
         var mappedAnimeStreamToResponseList = AnimeMapper.mapAnimeStreamToDefaultDetailsList(animeList.stream());
 
         Assertions.assertThat(mappedAnimeStreamToResponseList).isNotNull();
         Assertions.assertThat(mappedAnimeStreamToResponseList).isNotEmpty();
         Assertions.assertThat(mappedAnimeStreamToResponseList.get(0)).isNotNull();
-        Assertions.assertThat(mappedAnimeStreamToResponseList.get(0).getClass()).isEqualTo(AnimeDefaultDetailsDto.class);
+        Assertions.assertThat(mappedAnimeStreamToResponseList.get(0).getClass()).isEqualTo(AnimeDefaultDetailDto.class);
     }
 }

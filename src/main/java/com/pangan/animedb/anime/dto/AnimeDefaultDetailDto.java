@@ -3,7 +3,7 @@ package com.pangan.animedb.anime.dto;
 import lombok.Builder;
 
 @Builder
-public record AnimeDefaultDetailsDto(
+public record AnimeDefaultDetailDto(
         String id,
         String title
 ) {

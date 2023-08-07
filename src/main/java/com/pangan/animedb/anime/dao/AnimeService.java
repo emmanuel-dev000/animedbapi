@@ -1,11 +1,12 @@
 package com.pangan.animedb.anime.dao;
 
+import com.pangan.animedb.anime.dto.AnimeImageDetailDto;
+import com.pangan.animedb.anime.dto.AnimePageDto;
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
-import com.pangan.animedb.anime.dto.AnimePageDto;
-import com.pangan.animedb.anime.mapper.AnimeMapper;
-import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
 import com.pangan.animedb.anime.exception.AnimeNotFoundException;
+import com.pangan.animedb.anime.exception.IncompleteAnimeFieldsException;
+import com.pangan.animedb.anime.mapper.AnimeMapper;
 import com.pangan.animedb.genre.dao.Genre;
 import com.pangan.animedb.genre.exception.GenreNotFoundException;
 import com.pangan.animedb.tag.dao.Tag;
@@ -73,6 +74,15 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(optionalAnime.get());
     }
 
+    public AnimeImageDetailDto getAnimeImageDetailById(String id) throws AnimeNotFoundException {
+        Optional<Anime> optionalAnime = animeRepository.findById(id);
+        if (optionalAnime.isEmpty()) {
+            throw new AnimeNotFoundException();
+        }
+
+        return AnimeMapper.mapAnimeToImageDetail(optionalAnime.get());
+    }
+
     public AnimeResponseDto addAnime(AnimeRequestDto animeRequestDto) throws IncompleteAnimeFieldsException {
         if (isIncompleteAnimeFields(animeRequestDto)) {
             throw new IncompleteAnimeFieldsException();
@@ -83,15 +93,17 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(savedAnime);
     }
 
-    public AnimePageDto deleteAnimeById(String id) throws AnimeNotFoundException {
-        if (animeRepository.findById(id).isEmpty()) {
+    public String deleteAnimeById(String id) throws AnimeNotFoundException {
+        Optional<Anime> animeToBeDeleted = animeRepository.findById(id);
+        if (animeToBeDeleted.isEmpty()) {
             throw new AnimeNotFoundException();
         }
 
         animeRepository.deleteById(id);
-        return getAllAnimeInPage(DEFAULT_PAGE_NUMBER, DEFAULT_PAGE_SIZE);
+        return "Anime " + animeToBeDeleted.get().getTitle() + " was successfully deleted.";
     }
 
+    @Deprecated
     public List<AnimeResponseDto> deleteAnimeListByAnimeIdList(List<String> animeIdList) throws AnimeNotFoundException {
         if (animeIdList.isEmpty()) {
             throw new AnimeNotFoundException();

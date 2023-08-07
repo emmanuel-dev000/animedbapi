@@ -1,10 +1,10 @@
 package com.pangan.animedb.anime.mapper;
 
-import com.pangan.animedb.anime.dto.AnimeDefaultDetailsDto;
+import com.pangan.animedb.anime.dao.Anime;
+import com.pangan.animedb.anime.dto.AnimeDefaultDetailDto;
+import com.pangan.animedb.anime.dto.AnimeImageDetailDto;
 import com.pangan.animedb.anime.dto.AnimeRequestDto;
 import com.pangan.animedb.anime.dto.AnimeResponseDto;
-import com.pangan.animedb.anime.dao.Anime;
-import org.springframework.util.StringUtils;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -67,6 +67,16 @@ public class AnimeMapper {
         return  mappedAnimeToResponse;
     }
 
+    public static AnimeImageDetailDto mapAnimeToImageDetail(Anime anime) {
+        AnimeImageDetailDto mappedAnimeToImageDetail = AnimeImageDetailDto.builder()
+                .id(anime.getId())
+                .title(anime.getTitle())
+                .imageUrl(anime.getImageUrl())
+                .build();
+
+        return mappedAnimeToImageDetail;
+    }
+
     @Deprecated
     public static List<AnimeResponseDto> mapAnimeStreamToResponseList(Stream<Anime> animeStream) {
         return animeStream
@@ -74,14 +84,14 @@ public class AnimeMapper {
                 .collect(Collectors.toList());
     }
 
-    public static List<AnimeDefaultDetailsDto> mapAnimeStreamToDefaultDetailsList(Stream<Anime> animeStream) {
+    public static List<AnimeDefaultDetailDto> mapAnimeStreamToDefaultDetailsList(Stream<Anime> animeStream) {
         return animeStream
                 .map(anime -> mapAnimeToAnimeDefaultDetails(anime))
                 .collect(Collectors.toList());
     }
 
-    public static AnimeDefaultDetailsDto mapAnimeToAnimeDefaultDetails(Anime anime) {
-        return AnimeDefaultDetailsDto.builder()
+    public static AnimeDefaultDetailDto mapAnimeToAnimeDefaultDetails(Anime anime) {
+        return AnimeDefaultDetailDto.builder()
                 .id(anime.getId())
                 .title(anime.getTitle())
                 .build();
