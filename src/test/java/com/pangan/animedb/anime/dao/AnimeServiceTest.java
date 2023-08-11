@@ -13,7 +13,7 @@ class AnimeServiceTest {
 
     public static final Tag TAG_1 = new Tag();
     public static final Tag TAG_2 = new Tag();
-    public static final Tag NEW_TAG = new Tag();
+    public static final Tag FALSE_TAG = new Tag();
     private Anime anime;
     private List<Tag> tagList = new ArrayList<>();
 
@@ -44,8 +44,19 @@ class AnimeServiceTest {
                 .imageUrl("https://fav.ico/")
                 .build();
 
-        NEW_TAG.setId("Tag ID# New Tag");
-        NEW_TAG.setName("New Tag");
+        FALSE_TAG.setId("Tag ID# False Tag");
+        FALSE_TAG.setName("False Tag");
+    }
+
+    @Test
+    public void tagList_UpdatesList_ReturnsUpdatedTagList() {
+        anime.setTagList(tagList);
+
+        Assertions.assertThat(anime.getTagList()).isNotEmpty();
+        Assertions.assertThat(anime.getTagList().size()).isNotEqualTo(3);
+        Assertions.assertThat(anime.getTagList()).doesNotContain(FALSE_TAG);
+        Assertions.assertThat(anime.getTagList().get(0)).isEqualTo(TAG_1);
+        Assertions.assertThat(anime.getTagList().get(1)).isEqualTo(TAG_2);
     }
 
     @Test
@@ -68,7 +79,7 @@ class AnimeServiceTest {
     @Test
     public void tagList_IncludeTagsNotIncluded_ReturnNewTagList() {
         anime.setTagList(tagList);
-        List<Tag> updatedTags = new ArrayList<>(List.of(TAG_1, TAG_2, NEW_TAG));
+        List<Tag> updatedTags = new ArrayList<>(List.of(TAG_1, TAG_2, FALSE_TAG));
 
         for (Tag tag: updatedTags) {
             if (anime.getTagList().contains(tag)) {
@@ -80,8 +91,8 @@ class AnimeServiceTest {
 
         Assertions.assertThat(anime.getTagList()).isNotEmpty();
         Assertions.assertThat(anime.getTagList().size()).isEqualTo(3);
-        Assertions.assertThat(anime.getTagList().get(2)).isEqualTo(NEW_TAG);
-        Assertions.assertThat(anime.getTagList().get(2).getId()).isEqualTo(NEW_TAG.getId());
-        Assertions.assertThat(anime.getTagList().get(2).getName()).isEqualTo(NEW_TAG.getName());
+        Assertions.assertThat(anime.getTagList().get(2)).isEqualTo(FALSE_TAG);
+        Assertions.assertThat(anime.getTagList().get(2).getId()).isEqualTo(FALSE_TAG.getId());
+        Assertions.assertThat(anime.getTagList().get(2).getName()).isEqualTo(FALSE_TAG.getName());
     }
 }

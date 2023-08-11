@@ -10,7 +10,6 @@ import com.pangan.animedb.anime.mapper.AnimeMapper;
 import com.pangan.animedb.genre.dao.Genre;
 import com.pangan.animedb.genre.exception.GenreNotFoundException;
 import com.pangan.animedb.tag.dao.Tag;
-import com.pangan.animedb.tag.exception.IncompleteTagFieldsException;
 import com.pangan.animedb.tag.exception.TagNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -141,6 +140,7 @@ public class AnimeService {
                 || animeRequestDto.episodes() <= -1;
     }
 
+    @Deprecated
     public AnimeResponseDto addGenreListToAnimeById(String id, List<Genre> genreList) throws AnimeNotFoundException, GenreNotFoundException {
         if (genreList.isEmpty()) {
             throw new GenreNotFoundException();
@@ -161,6 +161,7 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(updatedAnime);
     }
 
+    @Deprecated
     public AnimeResponseDto deleteGenreInAnimeById(String id, Genre genre) throws AnimeNotFoundException, GenreNotFoundException {
         Optional<Anime> optionalAnime = animeRepository.findById(id);
         if (optionalAnime.isEmpty()) {
@@ -181,34 +182,47 @@ public class AnimeService {
         return AnimeMapper.mapAnimeToResponse(updatedAnime);
     }
 
-    public AnimeResponseDto addTagListInAnimeById(String id, List<Tag> tagList) throws TagNotFoundException, IncompleteTagFieldsException {
+    public AnimeResponseDto updateGenreListInAnimeById(String id, List<Genre> genreList) throws GenreNotFoundException, AnimeNotFoundException {
+        if (genreList.isEmpty()) {
+            throw new GenreNotFoundException();
+        }
+
+        if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
+            throw new AnimeNotFoundException();
+        }
+
+        Anime anime = animeRepository.findById(id).orElseThrow(() -> new AnimeNotFoundException());
+        anime.setGenreList(genreList);
+        animeRepository.save(anime);
+        return AnimeMapper.mapAnimeToResponse(anime);
+    }
+
+    public AnimeResponseDto updateTagListInAnimeById(String id, List<Tag> tagList) throws TagNotFoundException, AnimeNotFoundException {
         if (tagList.isEmpty()) {
             throw new TagNotFoundException();
         }
 
         if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
-            throw new TagNotFoundException();
+            throw new AnimeNotFoundException();
         }
 
-        Anime anime = animeRepository.findById(id).get();
-        tagList.stream()
-                .filter(tag -> !anime.getTagList().contains(tag))
-                .forEach(anime.getTagList()::add);
+        Anime anime = animeRepository.findById(id).orElseThrow(() -> new AnimeNotFoundException());
+        anime.setTagList(tagList);
         animeRepository.save(anime);
         return AnimeMapper.mapAnimeToResponse(anime);
     }
 
-    public AnimeResponseDto deleteTagInAnimeById(String id, Tag tag) throws AnimeNotFoundException {
-        if (!animeRepository.existsById(id) || animeRepository.findById(id).isEmpty()) {
-            throw new AnimeNotFoundException();
-        }
+    public List<Tag> getTagListInAnimeById(String id) throws AnimeNotFoundException {
+        return animeRepository
+                .findById(id)
+                .orElseThrow(() -> new AnimeNotFoundException())
+                .getTagList();
+    }
 
-        Anime anime =  animeRepository.findById(id).get();
-        if (!anime.getTagList().remove(tag)) {
-            throw new TagNotFoundException();
-        }
-
-        Anime savedAnime = animeRepository.save(anime);
-        return AnimeMapper.mapAnimeToResponse(savedAnime);
+    public List<Genre> getGenreListInAnimeById(String id) throws AnimeNotFoundException {
+        return animeRepository
+                .findById(id)
+                .orElseThrow(() -> new AnimeNotFoundException())
+                .getGenreList();
     }
 }

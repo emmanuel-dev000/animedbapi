@@ -66,23 +66,23 @@ public class AnimeController {
         return ResponseEntity.ok(animeService.updateAnimeById(id, animeRequestDto));
     }
 
-    @PostMapping("/{id}/genres")
-    public ResponseEntity<AnimeResponseDto> addGenreListToAnimeById(@PathVariable("id") String id, @RequestBody List<Genre> genreList) {
-        return ResponseEntity.ok(animeService.addGenreListToAnimeById(id, genreList));
+    @GetMapping("/{id}/genres")
+    public ResponseEntity<List<Genre>> getGenreListInAnimeById(@PathVariable("id") String id) {
+        return ResponseEntity.ok(animeService.getGenreListInAnimeById(id));
     }
 
-    @DeleteMapping("{id}/genres")
-    public ResponseEntity<AnimeResponseDto> deleteGenreInAnimeById(@PathVariable("id") String id, @RequestBody Genre genre) {
-        return ResponseEntity.ok(animeService.deleteGenreInAnimeById(id, genre));
+    @PatchMapping("/{id}/genres")
+    public ResponseEntity<AnimeResponseDto> updateGenreListInAnimeById(@PathVariable("id") String id, @RequestBody List<Genre> genreList) {
+        return ResponseEntity.ok(animeService.updateGenreListInAnimeById(id, genreList));
     }
 
-    @PostMapping("/{id}/tags")
-    public ResponseEntity<AnimeResponseDto> addTagToAnimeById(@PathVariable("id") String id, @RequestBody List<Tag> tagList) {
-        return ResponseEntity.ok(animeService.addTagListInAnimeById(id, tagList));
+    @GetMapping("/{id}/tags")
+    public ResponseEntity<List<Tag>> getTagListInAnimeById(@PathVariable("id") String id) {
+        return ResponseEntity.ok(animeService.getTagListInAnimeById(id));
     }
 
-    @DeleteMapping("{id}/tags")
-    public ResponseEntity<AnimeResponseDto> deleteTagInAnimeById(@PathVariable("id") String id, @RequestBody Tag tag) {
-        return ResponseEntity.ok(animeService.deleteTagInAnimeById(id, tag));
+    @PatchMapping("/{id}/tags")
+    public ResponseEntity<AnimeResponseDto> updateTagListInAnimeById(@PathVariable("id") String id, @RequestBody List<Tag> tagList) {
+        return ResponseEntity.ok(animeService.updateTagListInAnimeById(id, tagList));
     }
 }
