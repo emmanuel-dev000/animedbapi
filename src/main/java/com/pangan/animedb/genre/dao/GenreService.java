@@ -45,13 +45,13 @@ public class GenreService {
         return genreRepository.save(genre);
     }
 
-    public List<Genre> deleteGenreById(String id) throws GenreNotFoundException {
+    public String deleteGenreById(String id) throws GenreNotFoundException {
         if (!genreRepository.existsById(id)) {
             throw new GenreNotFoundException();
         }
 
         genreRepository.deleteById(id);
-        return getAllGenres();
+        return "Genre deleted successfully";
     }
 
     public Genre updateGenreById(String id, GenreRequestDto genreRequestDto) throws GenreNotFoundException, IncompleteGenreFieldsException {

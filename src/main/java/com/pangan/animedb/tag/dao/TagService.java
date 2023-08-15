@@ -45,13 +45,13 @@ public class TagService {
         return tagRepository.save(tag);
     }
 
-    public List<Tag> deleteTagById(String id) throws TagNotFoundException {
+    public String deleteTagById(String id) throws TagNotFoundException {
         if (!tagRepository.existsById(id) || tagRepository.findById(id).isEmpty()) {
             throw new TagNotFoundException();
         }
 
         tagRepository.deleteById(id);
-        return getAllTags();
+        return "Tag is successfully delete from the database";
     }
 
     public Tag updateTagById(String id, TagRequestDto tagRequestDto) throws TagNotFoundException, IncompleteTagFieldsException {

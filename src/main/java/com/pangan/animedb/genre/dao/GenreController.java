@@ -35,7 +35,7 @@ public class GenreController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<List<Genre>> deleteAnimeById(@PathVariable("id") String id) {
+    public ResponseEntity<String> deleteAnimeById(@PathVariable("id") String id) {
         return ResponseEntity.ok(genreService.deleteGenreById(id));
     }
 
