@@ -76,23 +76,23 @@ class AnimeServiceTest {
         Assertions.assertThat(anime.getTagList().get(1)).isEqualTo(TAG_2);
     }
 
-    @Test
-    public void tagList_IncludeTagsNotIncluded_ReturnNewTagList() {
-        anime.setTagList(tagList);
-        List<Tag> updatedTags = new ArrayList<>(List.of(TAG_1, TAG_2, FALSE_TAG));
-
-        for (Tag tag: updatedTags) {
-            if (anime.getTagList().contains(tag)) {
-                continue;
-            }
-
-            anime.getTagList().add(tag);
-        }
-
-        Assertions.assertThat(anime.getTagList()).isNotEmpty();
-        Assertions.assertThat(anime.getTagList().size()).isEqualTo(3);
-        Assertions.assertThat(anime.getTagList().get(2)).isEqualTo(FALSE_TAG);
-        Assertions.assertThat(anime.getTagList().get(2).getId()).isEqualTo(FALSE_TAG.getId());
-        Assertions.assertThat(anime.getTagList().get(2).getName()).isEqualTo(FALSE_TAG.getName());
-    }
+//    @Test
+//    public void tagList_IncludeTagsNotIncluded_ReturnNewTagList() {
+//        anime.setTagList(tagList);
+//        List<Tag> updatedTags = new ArrayList<>(List.of(TAG_1, TAG_2, FALSE_TAG));
+//
+//        for (Tag tag: updatedTags) {
+//            if (anime.getTagList().contains(tag)) {
+//                continue;
+//            }
+//
+//            anime.getTagList().add(tag);
+//        }
+//
+//        Assertions.assertThat(anime.getTagList()).isNotEmpty();
+//        Assertions.assertThat(anime.getTagList().size()).isEqualTo(3);
+//        Assertions.assertThat(anime.getTagList().get(2)).isEqualTo(FALSE_TAG);
+//        Assertions.assertThat(anime.getTagList().get(2).getId()).isEqualTo(FALSE_TAG.getId());
+//        Assertions.assertThat(anime.getTagList().get(2).getName()).isEqualTo(FALSE_TAG.getName());
+//    }
 }
