@@ -32,6 +32,10 @@
 			<version>1.18.28</version>
 			<scope>provided</scope>
 		</dependency>
+		<dependency>
+			<groupId>org.mongodb</groupId>
+			<artifactId>mongodb-driver-sync</artifactId>
+		</dependency>
 
 		<!-- SECURITY -->
 		<dependency>
