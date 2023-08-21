@@ -2,7 +2,6 @@ D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pang
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\anime\dao\AnimeService.java
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\anime\dto\AnimeRequestDto.java
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\anime\dto\AnimeResponseDto.java
-D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\api\ResponseStatus.java
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\auth\config\WebSecurityConfig.java
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\genre\dto\GenreRequestDto.java
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\tag\exception\IncompleteTagFieldsException.java
@@ -22,7 +21,6 @@ D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pang
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\auth\dao\UserAuthService.java
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\exceptionhandler\ResponseExceptionHandler.java
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\genre\exception\IncompleteGenreFieldsException.java
-D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\api\Response.java
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\auth\jwt\JwtTokenGenerator.java
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\auth\dto\UserAuthResponseDto.java
 D:\User\Documents\Spring Boot\Anime DB\springboot\animedb\src\main\java\com\pangan\animedb\genre\dao\GenreController.java
