@@ -39,7 +39,7 @@ class AnimeMapperTest {
                 .build();
 
         anime = Anime.builder()
-                .id("Id")
+                .id(1_000_000L)
 
                 .title("Title")
                 .rating(4.5F)

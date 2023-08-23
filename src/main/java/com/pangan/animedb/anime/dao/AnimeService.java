@@ -168,7 +168,7 @@ public class AnimeService {
             throw new AnimeNotFoundException();
         }
 
-        if (!StringUtils.hasText(genre.getId()) || !StringUtils.hasText(genre.getName())) {
+        if (!StringUtils.hasText(genre.getName())) {
             throw new GenreNotFoundException();
         }
 

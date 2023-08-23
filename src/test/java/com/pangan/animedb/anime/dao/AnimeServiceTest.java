@@ -19,10 +19,10 @@ class AnimeServiceTest {
 
     @BeforeEach
     public void init() {
-        TAG_1.setId("Tag ID# 1");
+        TAG_1.setId(1L);
         TAG_1.setName("Tag 1");
 
-        TAG_2.setId("Tag ID# 2");
+        TAG_2.setId(2L);
         TAG_2.setName("Tag 2");
 
         tagList = List.of(TAG_1, TAG_2);
@@ -44,7 +44,7 @@ class AnimeServiceTest {
                 .imageUrl("https://fav.ico/")
                 .build();
 
-        FALSE_TAG.setId("Tag ID# False Tag");
+        FALSE_TAG.setId(-1L);
         FALSE_TAG.setName("False Tag");
     }
 
