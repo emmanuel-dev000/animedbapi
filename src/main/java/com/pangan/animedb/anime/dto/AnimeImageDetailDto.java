@@ -4,7 +4,7 @@ import lombok.Builder;
 
 @Builder
 public record AnimeImageDetailDto(
-        String id,
+        Long id,
         String title,
         String imageUrl
 ) {

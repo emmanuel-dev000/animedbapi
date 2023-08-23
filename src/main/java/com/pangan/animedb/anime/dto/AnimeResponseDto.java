@@ -8,7 +8,7 @@ import java.util.List;
 
 @Builder
 public record AnimeResponseDto(
-        String id,
+        Long id,
 
         String title,
         Float rating,

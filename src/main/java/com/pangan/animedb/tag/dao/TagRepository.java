@@ -1,6 +1,6 @@
 package com.pangan.animedb.tag.dao;
 
-import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface TagRepository extends MongoRepository<Tag, String> {
+public interface TagRepository extends JpaRepository<Tag, String> {
 }
